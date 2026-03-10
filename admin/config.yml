@@ -1,0 +1,34 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "img"
+public_folder: "/img"
+publish_mode: editorial_workflow
+
+collections:
+  - name: "produtos"
+    label: "Produtos"
+    folder: "data/produtos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Nome", name: "nome", widget: "string", required: true}
+      - {label: "Categoria", name: "categoria", widget: "select", options: ["canecas", "bebê", "toalhas", "casa", "lavabo"], required: true}
+      - {label: "Status", name: "status", widget: "select", options: ["pronta-entrega", "promocao", "sob-encomenda"], default: "sob-encomenda"}
+      - {label: "Preço", name: "preco", widget: "string"}
+      - {label: "Descrição", name: "descricao", widget: "text"}
+      - {label: "Imagem", name: "imagem", widget: "image", required: true}
+      - {label: "Link WhatsApp", name: "whatsapp", widget: "string", required: true}
+      - {label: "Palavras-chave", name: "keywords", widget: "string"}
+      - {label: "Bordado em alta?", name: "bordado-alta", widget: "boolean", default: false}
+
+  - name: "home"
+    label: "Página Principal"
+    files:
+      - file: "data/home.json"
+        label: "Conteúdo Home"
+        fields:
+          - {label: "Título Hero", name: "hero-titulo", widget: "string"}
+          - {label: "Subtítulo Hero", name: "hero-subtitulo", widget: "text"}
+          - {label: "Destaque 1", name: "destaque1", widget: "object", fields: [{label: "Título", name: "titulo", widget: "string"}, {label: "Descrição", name: "descricao", widget: "text"}]}

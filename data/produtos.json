@@ -1,0 +1,24 @@
+[
+  {
+    "nome": "Caneca de Cerâmica Personalizada",
+    "categoria": "canecas",
+    "status": "pronta-entrega",
+    "preco": "R$ 35",
+    "descricao": "Caneca de cerâmica com estampa personalizada. Ideal para presente.",
+    "imagem": "caneca-ceramica.jpg",
+    "whatsapp": "https://wa.me/5524992271334?text=Olá,%20quero%20a%20caneca%20de%20cerâmica",
+    "keywords": "caneca cerâmica estampa presente",
+    "bordado-alta": false
+  },
+  {
+    "nome": "Bolsa de Bebê Floral",
+    "categoria": "bebê",
+    "status": "promocao",
+    "preco": "R$ 85",
+    "descricao": "Bolsa de bebê com bordado floral delicado.",
+    "imagem": "bolsa-bebe.jpg",
+    "whatsapp": "https://wa.me/5524992271334?text=Olá,%20quero%20a%20bolsa%20de%20bebê%20floral",
+    "keywords": "bolsa bebê floral bordado maternidade",
+    "bordado-alta": true
+  }
+]
