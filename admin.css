@@ -1,0 +1,120 @@
+/* UPLOAD */
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 14px;
+  background: var(--bg);
+  cursor: pointer;
+  transition: var(--transition);
+  overflow: hidden;
+  position: relative;
+}
+
+.upload-area:hover,
+.upload-area.drag-over {
+  border-color: var(--accent);
+  background: rgba(207,127,152,0.05);
+}
+
+.upload-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.upload-placeholder {
+  padding: 2.5rem;
+  text-align: center;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.upload-placeholder i {
+  font-size: 2.5rem;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.upload-placeholder p {
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.image-preview {
+  width: 100%;
+}
+
+.image-preview img {
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+}
+
+.preview-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: var(--bg);
+  flex-wrap: wrap;
+}
+
+.preview-info i {
+  color: var(--green);
+}
+
+.preview-info span {
+  font-size: 0.88rem;
+  color: var(--muted);
+  flex: 1;
+}
+
+.btn-change-img {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 0.82rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition);
+}
+
+.btn-change-img:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* PROGRESS */
+.upload-progress {
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.progress-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--pink), var(--tiffany));
+  border-radius: 999px;
+  transition: width 0.15s ease;
+}
+
+.upload-progress small {
+  color: var(--muted);
+  font-size: 0.82rem;
+}

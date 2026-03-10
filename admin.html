@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Lojas Kolte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginPage" class="login-page">
+    <div class="login-card">
+      <div class="login-logo">
+        <i class="fas fa-baby-carriage"></i>
+        <h1>Lojas Kolte</h1>
+        <p>Painel Administrativo</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <div class="input-wrap">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="loginEmail" placeholder="admin@lojaskolte.com.br" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Senha</label>
+          <div class="input-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="loginPassword" placeholder="••••••••" required>
+            <button type="button" class="toggle-pass" aria-label="Ver senha">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="loginError" class="login-error hidden">Email ou senha incorretos.</div>
+
+        <button type="submit" class="btn-login">
+          <i class="fas fa-sign-in-alt"></i> Entrar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="dashboard hidden">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <i class="fas fa-baby-carriage"></i>
+        <span>Lojas Kolte</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="produtos">
+          <i class="fas fa-box-open"></i>
+          <span>Produtos</span>
+        </a>
+        <a href="#" class="nav-item" data-section="novo-produto">
+          <i class="fas fa-plus-circle"></i>
+          <span>Novo Produto</span>
+        </a>
+        <a href="catalogo.html" class="nav-item" target="_blank">
+          <i class="fas fa-store"></i>
+          <span>Ver Catálogo</span>
+        </a>
+        <a href="index.html" class="nav-item" target="_blank">
+          <i class="fas fa-home"></i>
+          <span>Ver Site</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="logoutBtn" class="btn-logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Sair</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main-wrap">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <button class="hamburger-admin" id="sidebarToggle" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="topbar-title" id="topbarTitle">Produtos</div>
+        <div class="topbar-user">
+          <i class="fas fa-user-circle"></i>
+          <span id="loggedUser">Admin</span>
+        </div>
+      </header>
+
+      <!-- SECTION: Produtos -->
+      <section id="section-produtos" class="section-content">
+        <div class="section-header">
+          <div>
+            <h2>Produtos</h2>
+            <p class="section-desc">Todos os produtos do catálogo</p>
+          </div>
+
+          <div class="section-tools">
+            <input type="search" id="adminSearch" placeholder="Buscar produto..." class="admin-search">
+            <select id="adminFilterCat" class="admin-select">
+              <option value="">Todas categorias</option>
+              <option value="canecas">Canecas</option>
+              <option value="bebê">Bebê</option>
+              <option value="toalhas">Toalhas</option>
+              <option value="casa">Casa e presente</option>
+              <option value="lavabo">Lavabo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <i class="fas fa-box-open"></i>
+            <div>
+              <span id="statTotal">0</span>
+              <p>Total produtos</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-tags"></i>
+            <div>
+              <span id="statPromo">0</span>
+              <p>Promoções</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-check-circle"></i>
+            <div>
+              <span id="statReady">0</span>
+              <p>Pronta entrega</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-fire"></i>
+            <div>
+              <span id="statTrend">0</span>
+              <p>Em alta</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="products-table" id="productsTable">
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Categoria</th>
+                <th>Status</th>
+                <th>Preço</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody"></tbody>
+          </table>
+          <div id="emptyTableState" class="empty-table hidden">
+            <i class="fas fa-box-open"></i>
+            <p>Nenhum produto encontrado.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: Novo/Editar Produto -->
+      <section id="section-novo-produto" class="section-content hidden">
+        <div class="section-header">
+          <div>
+            <h2 id="formTitle">Novo Produto</h2>
+            <p class="section-desc" id="formSubtitle">Preencha as informações abaixo</p>
+          </div>
+          <button class="btn-secondary" id="btnVoltar">
+            <i class="fas fa-arrow-left"></i> Voltar
+          </button>
+        </div>
+
+        <form id="productForm" class="product-form" novalidate>
+          <input type="hidden" id="editIndex" value="-1">
+          <input type="hidden" id="pImagemUrl" value="">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="pNome">Nome do produto *</label>
+              <input type="text" id="pNome" placeholder="Ex: Caneca de Cerâmica Personalizada" required>
+            </div>
+
+            <div class="form-group">
+              <label for="pCategoria">Categoria *</label>
+              <select id="pCategoria" required>
+                <option value="">Selecione...</option>
+                <option value="canecas">Canecas</option>
+                <option value="bebê">Bebê</option>
+                <option value="toalhas">Toalhas</option>
+                <option value="casa">Casa e presente</option>
+                <option value="lavabo">Lavabo</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="pStatus">Status *</label>
+              <select id="pStatus" required>
+                <option value="sob-encomenda">Sob encomenda</option>
+                <option value="pronta-entrega">Pronta entrega</option>
+                <option value="promocao">Promoção</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="pPreco">Preço</label>
+              <input type="text" id="pPreco" placeholder="Ex: R$ 35,00">
+            </div>
+
+            <div class="form-group full">
+              <label for="pDescricao">Descrição *</label>
+              <textarea id="pDescricao" rows="3" placeholder="Descreva o produto..."></textarea>
+            </div>
+
+            <!-- UPLOAD IMAGEM -->
+            <div class="form-group full">
+              <label>Foto do produto *</label>
+
+              <div class="upload-area" id="uploadArea">
+                <input type="file" id="pImagemFile" accept="image/jpeg,image/png,image/webp" class="upload-input">
+                <div class="upload-placeholder" id="uploadPlaceholder">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>Clique ou arraste a foto aqui</p>
+                  <small>JPG, PNG, WebP (máx. 10MB)</small>
+                </div>
+                <div id="imagePreview" class="image-preview hidden"></div>
+              </div>
+
+              <div id="uploadProgress" class="upload-progress hidden">
+                <div class="progress-bar">
+                  <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <small id="uploadStatus">Enviando...</small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="pWhatsapp">Link WhatsApp</label>
+              <div class="input-wrap">
+                <i class="fab fa-whatsapp"></i>
+                <input type="url" id="pWhatsapp" placeholder="https://wa.me/5524992271334?text=...">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="pPersonalizacao">Personalização</label>
+              <input type="text" id="pPersonalizacao" placeholder="Ex: estampa bordado nome">
+            </div>
+
+            <div class="form-group">
+              <label for="pEstilo">Estilo</label>
+              <input type="text" id="pEstilo" placeholder="Ex: floral minimalista lacinho">
+            </div>
+
+            <div class="form-group">
+              <label for="pKeywords">Palavras-chave</label>
+              <input type="text" id="pKeywords" placeholder="Ex: caneca presente cerâmica">
+            </div>
+
+            <div class="form-group toggle-group">
+              <label class="toggle-label">
+                <input type="checkbox" id="pBordadoAlta">
+                <span class="toggle-slider"></span>
+                Bordado em alta?
+              </label>
+            </div>
+
+          </div>
+
+          <div id="formError" class="form-error hidden"></div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="btnSalvar">
+              <i class="fas fa-save"></i> Salvar produto
+            </button>
+            <button type="button" class="btn-secondary" id="btnCancelar">
+              <i class="fas fa-times"></i> Cancelar
+            </button>
+          </div>
+        </form>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- MODAL EXCLUSÃO -->
+  <div id="deleteModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <i class="fas fa-trash-alt modal-icon"></i>
+      <h3>Excluir produto?</h3>
+      <p id="deleteProductName">Este produto será removido do catálogo.</p>
+      <div class="modal-actions">
+        <button class="btn-primary btn-danger" id="confirmDelete">Excluir</button>
+        <button class="btn-secondary" id="cancelDelete">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast hidden">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Produto salvo!</span>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
